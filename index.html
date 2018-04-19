@@ -4,9 +4,28 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>smilevue</title>
+    <!--iphone 5 1rem=16px  html font-size=16px-->
+    <style>
+      .test{
+        width:20rem;
+        height: 10rem;
+        background-color: bisque;
+        text-align: center;
+      }
+      .hello{ color: red; font-size:1rem;}
+    </style>
   </head>
   <body>
     <div id="app"></div>
     <!-- built files will be auto injected -->
+    <div class="test">
+        <p class="hello">Hello JSPang</p>
+    </div>
+    <script>
+      let htmlwidth = document.documentElement.clientWidth || document.body.clientWidth ;
+      let htmlDom = document.getElementsByTagName('html')[0];
+      htmlDom.style.fontSize= htmlwidth/20 +'px';
+      console.log(htmlwidth);
+    </script>
   </body>
 </html>
