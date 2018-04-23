@@ -1,6 +1,6 @@
-# smilevue
+# SmileVue
 
-> A Vue.js project
+> 这是一个课程项目，使用了Vue的技术，完成移动端商城的基本功能。课程超过20小时的内容，
 
 ## Build Setup
 
