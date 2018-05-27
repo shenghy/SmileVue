@@ -44,7 +44,7 @@
                        <div class="recommend-item">
                            <img :src="item.image" width="80%">
                            <div>{{item.goodsName}}</div>
-                           <div>￥{{item.price}}(￥{{item.mallPrice}})</div>
+                           <div>￥{{item.price | moneyFilter}}(￥{{item.mallPrice  | moneyFilter}})</div>
                        </div>
                    </swiper-slide> 
                 </swiper>
@@ -53,6 +53,23 @@
         <floor-component :floorData="floor1" :floorTitle="floorName.floor1"></floor-component>
         <floor-component :floorData="floor2" :floorTitle="floorName.floor2"></floor-component>
         <floor-component :floorData="floor3" :floorTitle="floorName.floor3"></floor-component>
+        <!--Hot Area-->
+        <div class="hot-area">
+            <div class="hot-title">热卖商品</div>
+            <div class="hot-goods">
+            <!--这里需要一个list组件-->
+                <van-list>
+                    <van-row gutter="20">
+                        <van-col span="12" v-for="(item , index) in hotGoods" :key="index">
+                                <goods-info :goodsImage="item.image" :goodsName="item.name" :goodsPrice="item.price">
+
+                                </goods-info>
+                        </van-col>
+                    </van-row>
+                </van-list>
+            </div>
+        </div>
+        
        
         
     </div>
@@ -64,6 +81,9 @@
     import {swiper , swiperSlide} from 'vue-awesome-swiper'
  
     import floorComponent from '../component/floorComponent'
+    import { toMoney } from '@/filter/moneyFilter.js'
+    import goodsInfo from '../component/goodsInfoComponent'
+    import url from '@/serviceAPI.config.js'
    
     export default {
         data() {
@@ -81,13 +101,19 @@
                 floor2:[],
                 floor3:[],
                 floorName:{},
+                hotGoods:[],  //热卖商品
               
             }
         },
-        components:{swiper,swiperSlide,floorComponent},
+        filters:{
+            moneyFilter(money){
+                return toMoney(money)
+            }
+        },
+        components:{swiper,swiperSlide,floorComponent,goodsInfo},
         created(){
             axios({
-                url:'https://www.easy-mock.com/mock/5ae2eeb23fbbf24d8cd7f0b6/SmileVue/index',
+                url:url.getShopingMallInfo,
                 method:'get',
             })
             .then(response=>{
@@ -101,6 +127,7 @@
                     this.floor2 = response.data.data.floor2;
                     this.floor3 = response.data.data.floor3;
                     this.floorName = response.data.data.floorName;
+                    this.hotGoods = response.data.data.hotGoods;
 
                    
                    
@@ -174,6 +201,12 @@
         border-right:1px solid #eee;
         font-size:12px;
         text-align: center;
+    }
+    .hot-area{
+        text-align: center;
+        font-size:14px;
+        height: 1.8rem;
+        line-height:1.8rem;
     }
     
 
