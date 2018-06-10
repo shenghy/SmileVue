@@ -10,7 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^2.0.1",
+    "glob": "^7.1.2",
     "koa": "^2.5.1",
+    "koa-router": "^7.4.0",
     "mongoose": "^5.1.2"
   }
 }
