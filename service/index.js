@@ -28,21 +28,10 @@ app.use(router.routes())
 app.use(router.allowedMethods())
 
 
-// ;(async ()=>{
-//     await connect()
-//     initSchemas()
-//     const User = mongoose.model('User')
-//     let oneUser = new User({userName:'jspang02',password:'123456'})
-//     oneUser.save().then(()=>{
-//         console.log('插入成功')
-//     })
-//     let user = await User.findOne({}).exec()
-//     console.log('------------------------')
-//     console.log(user)
-//     console.log('------------------------')
-
-
-// })()
+;(async ()=>{
+    await connect()
+    initSchemas()
+})()
 
 
 app.use(async(ctx)=>{
