@@ -1,7 +1,7 @@
 <template>
     <div>
         <van-nav-bar
-            title="用户注册"
+            title="用户登录"
             left-text="返回"
             left-arrow
             @click-left="goBack"
@@ -27,7 +27,7 @@
                
             />
             <div class="register-button">
-                <van-button type="primary" @click="registerAction" size="large" :loading="openLoading">马上注册</van-button>
+                <van-button type="primary" @click="loginAction" size="large" :loading="openLoading">登录</van-button>
             </div>
          </div>
     </div>
@@ -51,14 +51,14 @@
            goBack() {
                this.$router.go(-1)
            },
-            registerAction(){
-                this.checkForm() && this.axiosRegisterUser()
+            loginAction(){
+                this.checkForm() && this.axiosLoginUser()
             },
 
-           axiosRegisterUser(){
+           axiosLoginUser(){
                this.openLoading=true;
                axios({
-                   url:url.registerUser,
+                   url:url.login,
                    method: 'post',
                    data:{
                        userName:this.username,
@@ -66,21 +66,11 @@
                    }
                })
                .then(response=>{
-                   console.log(response)
-                   if(response.data.code==200){
-
-                       Toast.success(response.data.message)
-                       this.$router.push('/')
-                   }else{
-                       console.log(response.data.message)
-                       this.openLoading=false
-                       Toast.fail('注册失败')
-                   }
+                 console.log(response) 
 
                })
                .catch((error)=>{
-                   console.log(error)
-                   Toast.fail('注册失败')
+                  
                     this.openLoading=false
                })
            },
