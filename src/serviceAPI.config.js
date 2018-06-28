@@ -5,6 +5,7 @@ const URL ={
     getGoodsInfo : BASEURL+'getGoodsInfo', 
     registerUser : LOCALURL+'user/register',  //用户注册接口
     login : LOCALURL+'user/login',  //用户登录接口
+    getDetailGoodsInfo : LOCALURL+'goods/getDetailGoodsInfo',  //获取商品详情
 }
 
 module.exports = URL
