@@ -68,6 +68,7 @@ router.post('/getDetailGoodsInfo',async(ctx)=>{
     try{
         let goodsId = ctx.request.body.goodsId
         const Goods = mongoose.model('Goods')
+        console.log(goodsId)
         let result= await Goods.findOne({ID:goodsId}).exec()
         ctx.body={code:200,message:result}
     }catch(error){
