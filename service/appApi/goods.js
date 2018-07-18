@@ -76,6 +76,50 @@ router.post('/getDetailGoodsInfo',async(ctx)=>{
     }
 })
 
+//**读取大类数据的接口 */
+
+router.get('/getCategoryList',async(ctx)=>{
+    try{
+        const Category = mongoose.model('Category')
+        let result = await Category.find().exec()
+        ctx.body={code:200,message:result}
+    }catch(error){
+        ctx.body={code:500,message:error}
+    }
+    
+})
+
+/**读取小类的数据 */
+
+
+router.post('/getCategorySubList',async(ctx)=>{
+    try{
+        let cateoryId = ctx.request.body.categoryId
+        //let cateoryId=1
+        const CategorySub = mongoose.model('CategorySub')
+        let result = await CategorySub.find({MALL_CATEGORY_ID:cateoryId}).exec()
+        ctx.body={code:200,message:result}
+    }catch(error){
+        ctx.body={code:500,message:error}
+    }
+    
+})
+
+/**根据类别获取商品列表 */
+
+router.get('/getGoodsListByCategorySubID',async(ctx)=>{
+    try{
+        //let categorySubId = ctx.request.body.categorySubId
+        let categorySubId='2c9f6c946016ea9b016016f79c8e0000'
+        const Goods = mongoose.model('Goods')
+        let result = await Goods.find({SUB_ID:categorySubId}).exec()
+        ctx.body={code:200,message:result}
+    }catch(error){
+        ctx.body={code:500,message:error}
+    }
+    
+})
+
 
 
 module.exports = router
