@@ -25,6 +25,16 @@
                           </van-tab>
                       </van-tabs>
                   </div>
+                  
+                <div id="list-div">
+                    <van-pull-refresh v-model="isRefresh" @refresh="onRefresh">
+                        <van-list v-model="loading" :finished="finished" @load="onLoad">
+                            <div class="list-item" v-for="item in list" :key="item">
+                                {{item}}
+                            </div>
+                        </van-list>
+                    </van-pull-refresh>
+                </div>
               </van-col>
           </van-row>  
         </div>
@@ -42,6 +52,10 @@
                 categoryIndex:0,
                 categorySub:[],  //小类类别
                 active:0,    //激活标签的值
+                loading:false,
+                finished:false, //上拉加载是否有数据
+                list:[], //商品数据 
+                isRefresh:false, //下拉刷新
             }
         },
         created(){
@@ -51,6 +65,7 @@
         mounted(){
             let winHeight = document.documentElement.clientHeight
             document.getElementById("leftNav").style.height=winHeight -46 +'px'
+            document.getElementById("list-div").style.height=winHeight -90 +'px'
         },
         methods: {
             getCategory() {
@@ -95,7 +110,34 @@
                 .catch(error=>{
                     console.log(error)
                 })
+            },
+            //上拉加载方法
+            onLoad(){
+                setTimeout(()=>{
+                    for(let i=0; i<10;i++){
+                        this.list.push(this.list.length+1)
+                    }
+
+                    this.loading=false;
+                    if(this.list.length>=40){
+                        this.finished = true;
+                    }
+
+                },500)
+            },
+            //下拉刷新方法
+            onRefresh(){
+                setTimeout(()=>{
+                    this.isRefresh=false;
+                     this.finished = false;
+                    this.list=[]
+                    this.onLoad()
+
+                },500)
             }
+
+          
+
            
         },
     }
@@ -114,6 +156,15 @@
     }
     .categoryActice{
         background-color: #fff;
+    }
+    .list-item{
+        text-align: center;
+        line-height: 80px;
+        border-bottom: 1px solid #f0f0f0;
+        background-color: #FFF;
+    }
+    #list-div{
+        overflow: scroll
     }
    
 </style>
