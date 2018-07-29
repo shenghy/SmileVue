@@ -29,7 +29,7 @@
                 <div id="list-div">
                     <van-pull-refresh v-model="isRefresh" @refresh="onRefresh">
                         <van-list v-model="loading" :finished="finished" @load="onLoad">
-                            <div class="list-item" v-for="(item,index) in goodList" :key="index">
+                            <div class="list-item" @click="goGoodsInfo(item.ID)" v-for="(item,index) in goodList" :key="index">
                                 <div class="list-item-img">
                                     <img :src="item.IMAGE1" 
                                     width="100%"
@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="list-item-text">
                                     <div>{{item.NAME}}</div>                                    
-                                    <div>{{item.ORI_PRICE}}</div>                                    
+                                    <div>￥{{item.ORI_PRICE | moneyFilter}}</div>                                    
                                  </div>
                             </div>
                         </van-list>
@@ -57,6 +57,7 @@
 <script>
     import axios from 'axios'
     import url from '@/serviceAPI.config.js'
+    import {toMoney} from '@/filter/moneyFilter.js'
     export default {
         data() {
             return {
@@ -71,6 +72,11 @@
                 categorySubId:'', //商品子类ID
                 isRefresh:false, //下拉刷新
                 errorImg:'this.src="'+require('@/assets/images/errorimg.png')+'"',
+            }
+        },
+        filters:{
+            moneyFilter(money){
+                return toMoney(money)
             }
         },
         created(){
@@ -181,6 +187,10 @@
                 this.onLoad()
 
             },
+            //跳转到商品详细页
+            goGoodsInfo(id){
+                this.$router.push({name:'Goods',params:{goodsId:id}})
+            }
 
           
 

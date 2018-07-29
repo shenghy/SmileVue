@@ -58,7 +58,7 @@
             }
         },
         created(){
-            this.goodsId= this.$route.query.goodsId
+            this.goodsId= this.$route.query.goodsId ?this.$route.query.goodsId : this.$route.params.goodsId
             console.log(this.goodsId)
             this.getInfo()
         },
