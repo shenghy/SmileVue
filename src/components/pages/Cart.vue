@@ -64,7 +64,7 @@
                    allMoney += item.price*item.count
                })
               localStorage.cartInfo = JSON.stringify(this.cartInfo)
-               return allMoney
+            return allMoney
            }
        },
        filters:{
